@@ -16,6 +16,7 @@ class MemoryGameViewController: UIViewController {
     var imagesToMemorize: [UIImage] = []
     var selectedImages: [UIImage] = []
     var score: Int = 0
+    var playerName: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,7 @@ class MemoryGameViewController: UIViewController {
         if segue.identifier == "ShowResult",
            let resultVC = segue.destination as? ResultViewController {
             resultVC.currentScore = score
+            resultVC.playerName = playerName
         }
     }
 }
