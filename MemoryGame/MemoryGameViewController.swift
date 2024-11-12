@@ -66,10 +66,10 @@ class MemoryGameViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowResult",
-           let resultVC = segue.destination as? ResultViewController {
-            resultVC.currentScore = score
-            resultVC.playerName = playerName
+        if segue.identifier == "ShowResult", let resultVC = segue.destination as? ResultViewController {
+            let usuario = Usuario(nombre : playerName, puntuacion: score)
+
+            resultVC.currentUsuario = usuario
         }
     }
 }

@@ -2,61 +2,83 @@ import UIKit
 
 class ResultViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var ShowOnlineScores: UIButton!
+    @IBOutlet weak var currentScoreLabel: UILabel!
     
-    var currentScore: Int = 0
-    var playerName: String = ""
-    var scoreHistory: [(name: String, score: Int)] = []
-
+    var currentUsuario: Usuario?
+    var scoreHistory: [Usuario] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Insertar la puntuación actual al inicio del historial
-        scoreHistory.insert((name: playerName, score: currentScore), at: 0)
+
         
         tableView.dataSource = self
+        
+        // Cargar el historial de puntuaciones
+        loadScores()
+        
+        // Si hay una puntuación actual, agregarla al historial
+        if let usuario = currentUsuario {
+            scoreHistory.insert(usuario, at: 0) // Agregar la puntuación actual al principio del historial
+        }
+        
+        // Guardar el historial actualizado
+        saveScores()
+        
+        if let usuario = currentUsuario {
+            currentScoreLabel.text = "Puntuación Actual: \(usuario.puntuacion)"
+        }
+        
+        // Recargar la tabla para mostrar las puntuaciones
         tableView.reloadData()
     }
-
-    // Número de secciones: una para la puntuación actual y otra para el historial
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-
-    // Número de filas por sección
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1 // Solo una fila para la puntuación actual
-        } else {
-            return scoreHistory.count - 1 // Historial de partidas anteriores
+    
+    // Cargar las puntuaciones guardadas desde UserDefaults
+    func loadScores() {
+        if let savedHistory = UserDefaults.standard.array(forKey: "scoreHistory") as? [[String: Any]] {
+            for entry in savedHistory {
+                if let name = entry["name"] as? String, let score = entry["score"] as? Int {
+                    let usuario = Usuario(nombre: name, puntuacion: score)
+                    scoreHistory.append(usuario)
+                }
+            }
         }
     }
 
-    // Celdas para la tabla
+    // Guardar las puntuaciones en UserDefaults
+    func saveScores() {
+        var savedHistory: [[String: Any]] = []
+        for usuario in scoreHistory {
+            savedHistory.append(["name": usuario.nombre, "score": usuario.puntuacion])
+        }
+        UserDefaults.standard.set(savedHistory, forKey: "scoreHistory")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return scoreHistory.count
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
         
-        if indexPath.section == 0 {
-            // Puntuación actual
-            let currentScoreEntry = scoreHistory[0]
-            cell.textLabel?.text = "Puntuación actual - \(currentScoreEntry.name): \(currentScoreEntry.score) puntos"
-        } else {
-            // Historial de puntuaciones
-            let pastScoreEntry = scoreHistory[indexPath.row + 1] // +1 para omitir la puntuación actual
-            cell.textLabel?.text = "\(pastScoreEntry.name): \(pastScoreEntry.score) puntos"
-        }
+        let usuario = scoreHistory[indexPath.row]
+        cell.textLabel?.text = "\(usuario.nombre): \(usuario.puntuacion) puntos"
+        
         return cell
-    }
-    
-    // Títulos para las secciones
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Puntuación Actual"
-        } else {
-            return "Historial de Partidas"
-        }
     }
     
     @IBAction func playAgainButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "MainScreen", sender: nil)
+    }
+    
+    @IBAction func ShowOnlineScores(_ sender: Any) {
+        performSegue(withIdentifier: "ShowOnlineScores", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowOnlineScores"{
+            
+        }
     }
 }

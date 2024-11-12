@@ -16,6 +16,8 @@
 		7A6087DA2CCA6603002EA8B7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A6087D92CCA6603002EA8B7 /* Launch Screen.storyboard */; };
 		7A6087DD2CCA663D002EA8B7 /* MemoryGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6087DC2CCA663D002EA8B7 /* MemoryGameViewController.swift */; };
 		7ABC64582CCFA062006B5E16 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC64572CCFA062006B5E16 /* ResultViewController.swift */; };
+		7F02C64E2CDCEAD10014EB4F /* Usuario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F02C64D2CDCEAD10014EB4F /* Usuario.swift */; };
+		7FEE4E052CE231AC007DC6F4 /* OnlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE4E042CE231AC007DC6F4 /* OnlineViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		7A6087D92CCA6603002EA8B7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7A6087DC2CCA663D002EA8B7 /* MemoryGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameViewController.swift; sourceTree = "<group>"; };
 		7ABC64572CCFA062006B5E16 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		7F02C64D2CDCEAD10014EB4F /* Usuario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usuario.swift; sourceTree = "<group>"; };
+		7FEE4E042CE231AC007DC6F4 /* OnlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +69,11 @@
 			children = (
 				7A4E0F202CC7B4C1000578E7 /* AppDelegate.swift */,
 				7A4E0F222CC7B4C1000578E7 /* SceneDelegate.swift */,
+				7F02C64D2CDCEAD10014EB4F /* Usuario.swift */,
 				7A4E0F242CC7B4C1000578E7 /* GameViewController.swift */,
 				7ABC64572CCFA062006B5E16 /* ResultViewController.swift */,
 				7A6087DC2CCA663D002EA8B7 /* MemoryGameViewController.swift */,
+				7FEE4E042CE231AC007DC6F4 /* OnlineViewController.swift */,
 				7A4E0F262CC7B4C1000578E7 /* Main.storyboard */,
 				7A4E0F292CC7B4C3000578E7 /* Assets.xcassets */,
 				7A4E0F2B2CC7B4C3000578E7 /* LaunchScreen.storyboard */,
@@ -148,7 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ABC64582CCFA062006B5E16 /* ResultViewController.swift in Sources */,
+				7FEE4E052CE231AC007DC6F4 /* OnlineViewController.swift in Sources */,
 				7A4E0F252CC7B4C1000578E7 /* GameViewController.swift in Sources */,
+				7F02C64E2CDCEAD10014EB4F /* Usuario.swift in Sources */,
 				7A4E0F212CC7B4C1000578E7 /* AppDelegate.swift in Sources */,
 				7A6087DD2CCA663D002EA8B7 /* MemoryGameViewController.swift in Sources */,
 				7A4E0F232CC7B4C1000578E7 /* SceneDelegate.swift in Sources */,

@@ -220,50 +220,150 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Jugar de nuevo"/>
                                 <connections>
-                                    <action selector="playAgainButtonTapped:" destination="IJO-QD-5Un" eventType="touchUpInside" id="1zx-Tt-rdh"/>
+                                    <action selector="playAgainButtonTapped:" destination="IJO-QD-5Un" eventType="touchUpInside" id="ARp-O9-MBW"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bVD-Gv-lrf">
-                                <rect key="frame" x="7" y="169" width="398" height="225"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bVD-Gv-lrf">
+                                <rect key="frame" x="20" y="247" width="374" height="225"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="225" id="1Y8-qu-2u2"/>
-                                    <constraint firstAttribute="width" constant="339" id="Odt-vC-dNo"/>
+                                    <constraint firstAttribute="width" constant="374" id="Odt-vC-dNo"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScoreCell" rowHeight="174" id="Y9e-5L-jW0">
-                                        <rect key="frame" x="0.0" y="50" width="398" height="174"/>
+                                        <rect key="frame" x="0.0" y="50" width="374" height="174"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y9e-5L-jW0" id="vdH-yj-2fr">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="174"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="174"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iX-T2-cFb">
+                                <rect key="frame" x="186.5" y="151" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOv-hM-tmh">
+                                <rect key="frame" x="94" y="684" width="226" height="36"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Ver puntuaciones online"/>
+                                <connections>
+                                    <action selector="ShowOnlineScores:" destination="IJO-QD-5Un" eventType="touchUpInside" id="nYC-J8-kYJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="w6e-Jy-qsZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="2iX-T2-cFb" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="4aw-cA-VSu"/>
                             <constraint firstItem="wh6-uW-uuI" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="7zj-wn-VM2"/>
                             <constraint firstItem="wh6-uW-uuI" firstAttribute="top" secondItem="w6e-Jy-qsZ" secondAttribute="top" constant="76" id="Cau-DL-4zL"/>
-                            <constraint firstItem="bVD-Gv-lrf" firstAttribute="top" secondItem="wh6-uW-uuI" secondAttribute="bottom" constant="55" id="Snk-A8-tlR"/>
+                            <constraint firstItem="bVD-Gv-lrf" firstAttribute="top" secondItem="wh6-uW-uuI" secondAttribute="bottom" constant="133" id="Snk-A8-tlR"/>
+                            <constraint firstItem="YOv-hM-tmh" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="fcN-To-vRw"/>
+                            <constraint firstItem="OL7-bN-dsV" firstAttribute="top" secondItem="YOv-hM-tmh" secondAttribute="bottom" constant="38" id="fuj-2K-Ary"/>
                             <constraint firstItem="w6e-Jy-qsZ" firstAttribute="bottom" secondItem="OL7-bN-dsV" secondAttribute="bottom" constant="102" id="iff-bO-2uA"/>
                             <constraint firstItem="OL7-bN-dsV" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="lJY-nK-UvR"/>
-                            <constraint firstItem="bVD-Gv-lrf" firstAttribute="leading" secondItem="w6e-Jy-qsZ" secondAttribute="leading" constant="38" id="lTv-n5-3pa"/>
+                            <constraint firstItem="bVD-Gv-lrf" firstAttribute="leading" secondItem="w6e-Jy-qsZ" secondAttribute="leading" constant="20" id="lTv-n5-3pa"/>
+                            <constraint firstItem="2iX-T2-cFb" firstAttribute="top" secondItem="wh6-uW-uuI" secondAttribute="bottom" constant="37" id="xoZ-11-rhU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7tI-eh-rbj"/>
                     <connections>
-                        <outlet property="tableView" destination="bVD-Gv-lrf" id="hSj-CH-My8"/>
+                        <outlet property="ShowOnlineScores" destination="YOv-hM-tmh" id="UTD-ea-o7G"/>
+                        <outlet property="currentScoreLabel" destination="2iX-T2-cFb" id="dyn-Ve-QQd"/>
+                        <outlet property="tableView" destination="bVD-Gv-lrf" id="AQe-WC-7vy"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="MainScreen" modalPresentationStyle="fullScreen" id="Ket-LJ-Gtm"/>
+                        <segue destination="phn-3K-4GI" kind="presentation" identifier="ShowOnlineScores" modalPresentationStyle="fullScreen" id="qg6-ka-XZK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3h2-QV-aB7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2298.5507246376815" y="93.75"/>
         </scene>
+        <!--Online View Controller-->
+        <scene sceneID="FgT-at-kq5">
+            <objects>
+                <viewController storyboardIdentifier="OnlineViewController" id="phn-3K-4GI" customClass="OnlineViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1gx-1V-laH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxp-wG-yiM">
+                                <rect key="frame" x="43" y="89" width="7" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
+                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" systemColor="systemOrangeColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESULTADOS ONLINE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRN-nh-DnS">
+                                <rect key="frame" x="47.5" y="23" width="319" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
+                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" systemColor="systemOrangeColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vdj-mw-zZs">
+                                <rect key="frame" x="87" y="164" width="240" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Mk2-Kk-HPw"/>
+                                    <constraint firstAttribute="width" constant="240" id="mcK-tk-qrs"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iO6-lN-HKI">
+                                        <rect key="frame" x="0.0" y="50" width="240" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iO6-lN-HKI" id="IDo-52-xII">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGN-zg-kua">
+                                <rect key="frame" x="167" y="747" width="80" height="36"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="CERRAR"/>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="phn-3K-4GI" eventType="touchUpInside" id="iLO-ZZ-JA9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QlL-nU-1mw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sRN-nh-DnS" firstAttribute="top" secondItem="QlL-nU-1mw" secondAttribute="top" constant="23" id="Fx2-Nf-KFk"/>
+                            <constraint firstItem="ZGN-zg-kua" firstAttribute="centerX" secondItem="1gx-1V-laH" secondAttribute="centerX" id="JDL-Lx-1cw"/>
+                            <constraint firstItem="sRN-nh-DnS" firstAttribute="centerX" secondItem="1gx-1V-laH" secondAttribute="centerX" id="NG6-32-ZVd"/>
+                            <constraint firstItem="vdj-mw-zZs" firstAttribute="leading" secondItem="QlL-nU-1mw" secondAttribute="leading" constant="87" id="eLI-Yz-1Ro"/>
+                            <constraint firstItem="QlL-nU-1mw" firstAttribute="bottom" secondItem="ZGN-zg-kua" secondAttribute="bottom" constant="113" id="f7V-od-g4q"/>
+                            <constraint firstItem="vdj-mw-zZs" firstAttribute="top" secondItem="sRN-nh-DnS" secondAttribute="bottom" constant="103" id="qV5-Lf-wvC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Fan-4u-Ojv"/>
+                    <connections>
+                        <outlet property="closeButton" destination="ZGN-zg-kua" id="yeS-2M-ahE"/>
+                        <outlet property="tableView" destination="vdj-mw-zZs" id="D8E-pE-E7N"/>
+                        <segue destination="IJO-QD-5Un" kind="presentation" identifier="ShowResult" modalPresentationStyle="fullScreen" id="xH9-4c-UjA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vjl-Yy-c2m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3232" y="94"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="xH9-4c-UjA"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
     <resources>
         <systemColor name="secondarySystemGroupedBackgroundColor">
