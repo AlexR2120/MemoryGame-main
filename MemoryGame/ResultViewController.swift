@@ -2,7 +2,6 @@ import UIKit
 
 class ResultViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var ShowOnlineScores: UIButton!
     @IBOutlet weak var currentScoreLabel: UILabel!
     
     var currentUsuario: Usuario?
@@ -27,7 +26,7 @@ class ResultViewController: UIViewController, UITableViewDataSource {
         saveScores()
         
         if let usuario = currentUsuario {
-            currentScoreLabel.text = "Puntuación Actual: \(usuario.puntuacion)"
+            currentScoreLabel.text = "Puntuación Actual: \(usuario.score)"
         }
         
         // Recargar la tabla para mostrar las puntuaciones
@@ -50,7 +49,7 @@ class ResultViewController: UIViewController, UITableViewDataSource {
     func saveScores() {
         var savedHistory: [[String: Any]] = []
         for usuario in scoreHistory {
-            savedHistory.append(["name": usuario.nombre, "score": usuario.puntuacion])
+            savedHistory.append(["name": usuario.name, "score": usuario.score])
         }
         UserDefaults.standard.set(savedHistory, forKey: "scoreHistory")
     }
@@ -63,7 +62,7 @@ class ResultViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
         
         let usuario = scoreHistory[indexPath.row]
-        cell.textLabel?.text = "\(usuario.nombre): \(usuario.puntuacion) puntos"
+        cell.textLabel?.text = "\(usuario.name): \(usuario.score) puntos"
         
         return cell
     }
