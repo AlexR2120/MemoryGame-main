@@ -219,6 +219,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Jugar de nuevo"/>
                                 <connections>
+                                    <action selector="playAgain:" destination="IJO-QD-5Un" eventType="touchUpInside" id="Pjc-P0-c2A"/>
                                     <action selector="playAgainButtonTapped:" destination="IJO-QD-5Un" eventType="touchUpInside" id="ARp-O9-MBW"/>
                                 </connections>
                             </button>
@@ -253,7 +254,18 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Ver puntuaciones online"/>
                                 <connections>
-                                    <action selector="ShowOnlineScores:" destination="IJO-QD-5Un" eventType="touchUpInside" id="nYC-J8-kYJ"/>
+                                    <action selector="lookOnlineScore:" destination="IJO-QD-5Un" eventType="touchUpInside" id="ZUW-ae-Kuv"/>
+                                    <action selector="verOnline:" destination="IJO-QD-5Un" eventType="touchUpInside" id="UBp-pA-dHl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5K-Di-h7F">
+                                <rect key="frame" x="130" y="612" width="154" height="35"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Subir puntuación"/>
+                                <connections>
+                                    <action selector="sendScore:" destination="IJO-QD-5Un" eventType="touchUpInside" id="Fcp-Ac-LLI"/>
+                                    <action selector="subirPuntuacion:" destination="IJO-QD-5Un" eventType="touchUpInside" id="X7Q-gm-Kkh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -264,8 +276,10 @@
                             <constraint firstItem="wh6-uW-uuI" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="7zj-wn-VM2"/>
                             <constraint firstItem="wh6-uW-uuI" firstAttribute="top" secondItem="w6e-Jy-qsZ" secondAttribute="top" constant="76" id="Cau-DL-4zL"/>
                             <constraint firstItem="bVD-Gv-lrf" firstAttribute="top" secondItem="wh6-uW-uuI" secondAttribute="bottom" constant="133" id="Snk-A8-tlR"/>
+                            <constraint firstItem="Z5K-Di-h7F" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="aGN-i3-Jfh"/>
                             <constraint firstItem="YOv-hM-tmh" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="fcN-To-vRw"/>
                             <constraint firstItem="OL7-bN-dsV" firstAttribute="top" secondItem="YOv-hM-tmh" secondAttribute="bottom" constant="38" id="fuj-2K-Ary"/>
+                            <constraint firstItem="YOv-hM-tmh" firstAttribute="top" secondItem="Z5K-Di-h7F" secondAttribute="bottom" constant="37" id="gXA-Bu-XaP"/>
                             <constraint firstItem="w6e-Jy-qsZ" firstAttribute="bottom" secondItem="OL7-bN-dsV" secondAttribute="bottom" constant="102" id="iff-bO-2uA"/>
                             <constraint firstItem="OL7-bN-dsV" firstAttribute="centerX" secondItem="p8d-El-TgE" secondAttribute="centerX" id="lJY-nK-UvR"/>
                             <constraint firstItem="bVD-Gv-lrf" firstAttribute="leading" secondItem="w6e-Jy-qsZ" secondAttribute="leading" constant="20" id="lTv-n5-3pa"/>
@@ -274,8 +288,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="7tI-eh-rbj"/>
                     <connections>
-                        <outlet property="currentScoreLabel" destination="2iX-T2-cFb" id="dyn-Ve-QQd"/>
-                        <outlet property="tableView" destination="bVD-Gv-lrf" id="AQe-WC-7vy"/>
+                        <outlet property="actualScore" destination="2iX-T2-cFb" id="6ym-LV-oWd"/>
+                        <outlet property="lookScore" destination="YOv-hM-tmh" id="zEE-IO-EtS"/>
+                        <outlet property="playAgain" destination="OL7-bN-dsV" id="lfb-9m-KsI"/>
+                        <outlet property="sendScore" destination="Z5K-Di-h7F" id="5Vq-Zh-cvP"/>
+                        <outlet property="tablaPuntuacion" destination="bVD-Gv-lrf" id="yfb-H4-v6H"/>
+                        <outlet property="tableView" destination="bVD-Gv-lrf" id="NWa-aa-dYo"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="MainScreen" modalPresentationStyle="fullScreen" id="Ket-LJ-Gtm"/>
                         <segue destination="phn-3K-4GI" kind="presentation" identifier="ShowOnlineScores" modalPresentationStyle="fullScreen" id="qg6-ka-XZK"/>
                     </connections>
@@ -307,7 +325,7 @@
                                     <constraint firstAttribute="width" constant="374" id="mcK-tk-qrs"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OnlineScoreCell" id="iO6-lN-HKI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CeldaOnline" id="iO6-lN-HKI">
                                         <rect key="frame" x="0.0" y="50" width="374" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iO6-lN-HKI" id="IDo-52-xII">
@@ -329,7 +347,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Fan-4u-Ojv"/>
                     <connections>
-                        <outlet property="onlineTableView" destination="vdj-mw-zZs" id="Py4-Rw-zuV"/>
+                        <outlet property="onlineTableView" destination="vdj-mw-zZs" id="Jx4-5v-DBu"/>
+                        <outlet property="tablaOnline" destination="vdj-mw-zZs" id="7Oq-h8-qru"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjl-Yy-c2m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -344,6 +363,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

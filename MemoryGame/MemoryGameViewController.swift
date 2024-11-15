@@ -15,14 +15,14 @@ class MemoryGameViewController: UIViewController {
     
     var imagesToMemorize: [UIImage] = []
     var selectedImages: [UIImage] = []
-    var score: Int = 0
+    var actualScore: Int = 0
     var playerName: String = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGame()
     }
-
+    
     func setupGame() {
         // Mostrar todas las imágenes para selección
         for (index, imageView) in imageViews.enumerated() {
@@ -33,7 +33,7 @@ class MemoryGameViewController: UIViewController {
         }
         finishButton.isHidden = true
     }
-
+    
     @objc func imageTapped(_ sender: UITapGestureRecognizer) {
         if let tappedImageView = sender.view as? UIImageView, let selectedImage = tappedImageView.image {
             if selectedImages.contains(selectedImage) {
@@ -49,27 +49,29 @@ class MemoryGameViewController: UIViewController {
             }
         }
     }
-
+    
     func checkSelections() {
-        score = 0
+        actualScore = 0
         for image in selectedImages {
             if imagesToMemorize.contains(image) {
-                score += 25 // 25 puntos por cada imagen correcta
+                actualScore += 25 // 25 puntos por cada imagen correcta
             } else {
-                score -= 10 // -10 puntos por cada imagen incorrecta
+                actualScore -= 10 // -10 puntos por cada imagen incorrecta
             }
         }
     }
-
-    @IBAction func finishButtonTapped(_ sender: UIButton) {
+    
+    func lookScore() {
         performSegue(withIdentifier: "ShowResult", sender: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowResult", let resultVC = segue.destination as? ResultViewController {
-            let usuario = Usuario(nombre : playerName, puntuacion: score)
-
-            resultVC.currentUsuario = usuario
-        }
+    @IBAction func finishButtonTapped(_ sender: UIButton) {
+        
+        user.score = actualScore
+        
+        scores.insert(user, at: 0)
+        
+        lookScore()
     }
+    
 }
