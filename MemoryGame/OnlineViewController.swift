@@ -14,18 +14,39 @@ class OnlineViewController: UIViewController, UITableViewDataSource, UITableView
     func fetchOnlineScores() {
         var request = URLRequest(url: urlAPI!)
         request.httpMethod = "GET"
-        request.addValue(apikey, forHTTPHeaderField: "apikey")
+        // Agregar la clave de la API en las cabeceras
+            request.addValue("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYXZydmtobGJtc2xqZ21ia25yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA3MjY5MTgsImV4cCI6MjAxNjMwMjkxOH0.Ta-_lXGGwSiUGh0VC8tAFcFQqsqAvB8vvXJjubeQkx8", forHTTPHeaderField: "apikey")
+            
+            // Agregar el token de autorización si es necesario
+            request.addValue("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYXZydmtobGJtc2xqZ21ia25yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA3MjY5MTgsImV4cCI6MjAxNjMwMjkxOH0.Ta-_lXGGwSiUGh0VC8tAFcFQqsqAvB8vvXJjubeQkx8", forHTTPHeaderField: "Authorization")
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    users.removeAll()
-                    for item in json as! [[String: Any]] {
-                        users.append(Player(json: item))
+                    print("Respuesta JSON recibida: \(json)")  // Imprime la respuesta JSON completa
+
+                    // Verificar si la respuesta es un arreglo de diccionarios
+                    if let jsonArray = json as? [[String: Any]] {
+                        users.removeAll()
+                        for item in jsonArray {
+                            users.append(Player(json: item))
+                        }
+                        DispatchQueue.main.async {
+                            self.onlineScoresTable.reloadData()
+                        }
                     }
-                    DispatchQueue.main.async {
-                        self.onlineScoresTable.reloadData()
+                    // Caso en que la respuesta es un diccionario que contiene un arreglo de jugadores
+                    else if let jsonDict = json as? [String: Any], let players = jsonDict["players"] as? [[String: Any]] {
+                        users.removeAll()
+                        for item in players {
+                            users.append(Player(json: item))
+                        }
+                        DispatchQueue.main.async {
+                            self.onlineScoresTable.reloadData()
+                        }
+                    } else {
+                        print("La respuesta no es el formato esperado (arreglo de diccionarios o diccionario con jugadores).")
                     }
                 } catch {
                     print("Error parsing JSON: \(error)")
