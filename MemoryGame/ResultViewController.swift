@@ -49,6 +49,10 @@ class ResultViewController: UIViewController {
             print("Puntuación enviada correctamente.")
         }.resume()
     }
+    
+    func subirPuntuacion() {
+        
+    }
 
     @IBAction func replayButtonPressed(_ sender: UIButton) {
         currentScore = 0
