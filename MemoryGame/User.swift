@@ -1,21 +1,16 @@
 import Foundation
 
-class Usuario: Codable {
-    var nombre: String
-    var puntuacion: Int
+class Player: Decodable {
+    var name: String
+    var score: Int
 
-    init(nombre: String, puntuacion: Int) {
-        self.nombre = nombre
-        self.puntuacion = puntuacion
+    init(name: String = "", score: Int = 0) {
+        self.name = name
+        self.score = score
     }
 
-    // Constructor para inicializar desde un JSON
-    init?(json: [String: Any]) {
-        guard let nombre = json["nombre"] as? String,
-              let puntuacion = json["puntuacion"] as? Int else {
-            return nil
-        }
-        self.nombre = nombre
-        self.puntuacion = puntuacion
+    init(json: [String: Any]) {
+        self.name = json["name"] as? String ?? ""
+        self.score = json["score"] as? Int ?? 0
     }
 }

@@ -1,56 +1,54 @@
 import UIKit
 
 class GameViewController: UIViewController {
-    @IBOutlet var imageViews: [UIImageView]!
+    @IBOutlet weak var image1: UIImageView!
+    @IBOutlet weak var image2: UIImageView!
+    @IBOutlet weak var image3: UIImageView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
-    
-    var allImages: [UIImage] = [
-        UIImage(named: "ace")!,
-        UIImage(named: "brook")!,
-        UIImage(named: "shanks")!,
-        UIImage(named: "luffy")!,
-        UIImage(named: "sanji")!,
-        UIImage(named: "zoro")!
-    ]
-    
-    var imagesToMemorize: [UIImage] = []
-    var playerName: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupInitialView()
+        currentPlayer = Player()
+        setupRandomImages()
         
-        nameTextField.placeholder = "Ingrese nombre"
-        
-        setupImagesToMemorize()
+        nameTextField.addTarget(self, action: #selector(nameEditingChanged), for: .editingChanged)
     }
 
-    func setupImagesToMemorize() {
-        // Seleccionar 3 imágenes aleatorias del array allImages
-        imagesToMemorize = allImages.shuffled().prefix(3).map { $0 }
-        
-        // Mostrar estas imágenes en los UIImageViews
-        for (index, imageView) in imageViews.enumerated() {
-            imageView.image = imagesToMemorize[index]
-        }
+    func setupInitialView() {
+        playButton.isEnabled = false
+        playButton.alpha = 0.6
     }
 
-    @IBAction func playButtonTapped(_ sender: UIButton) {
-        // Guardar el nombre ingresado
-        if let name = nameTextField.text, !name.isEmpty {
-            playerName = name
-        } else {
-            playerName = "Anónimo" // Nombre predeterminado si no se ingresa nada
+    func setupRandomImages() {
+        var uniqueIndexes: Set<Int> = []
+        while uniqueIndexes.count < 3 {
+            uniqueIndexes.insert(Int.random(in: 0..<imageList.count))
         }
-        
-        performSegue(withIdentifier: "Game", sender: nil)
+        let selectedIndexes = Array(uniqueIndexes)
+        image1.image = imageList[selectedIndexes[0]]
+        image2.image = imageList[selectedIndexes[1]]
+        image3.image = imageList[selectedIndexes[2]]
+        selectedImageIndexes = selectedIndexes
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Game",
-           let memoryGameVC = segue.destination as? MemoryGameViewController {
-            memoryGameVC.imagesToMemorize = imagesToMemorize
-            memoryGameVC.playerName = playerName
+    @objc func nameEditingChanged() {
+            // Si el texto no está vacío, habilitar el botón
+            if let name = nameTextField.text, !name.isEmpty {
+                currentPlayer.name = name
+                playButton.isEnabled = true
+                playButton.alpha = 1.0
+            } else {
+                playButton.isEnabled = false
+                playButton.alpha = 0.6
+            }
         }
+
+    @IBAction func playButtonPressed(_ sender: UIButton) {
+        if let name = nameTextField.text, name.isEmpty {
+            currentPlayer.name = "Anonimo"
+        }
+        performSegue(withIdentifier: "Game", sender: nil)
     }
 }

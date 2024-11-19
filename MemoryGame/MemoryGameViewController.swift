@@ -1,77 +1,75 @@
 import UIKit
 
 class MemoryGameViewController: UIViewController {
-    @IBOutlet var imageViews: [UIImageView]!
+    @IBOutlet weak var image1: UIImageView!
+    @IBOutlet weak var image2: UIImageView!
+    @IBOutlet weak var image3: UIImageView!
+    @IBOutlet weak var image4: UIImageView!
+    @IBOutlet weak var image5: UIImageView!
+    @IBOutlet weak var image6: UIImageView!
+
     @IBOutlet weak var finishButton: UIButton!
-    
-    var allImages: [UIImage] = [
-        UIImage(named: "ace")!,
-        UIImage(named: "brook")!,
-        UIImage(named: "shanks")!,
-        UIImage(named: "luffy")!,
-        UIImage(named: "sanji")!,
-        UIImage(named: "zoro")!
-    ]
-    
-    var imagesToMemorize: [UIImage] = []
-    var selectedImages: [UIImage] = []
-    var actualScore: Int = 0
-    var playerName: String = ""
-    
+
+    var selectedImages = [Int]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGame()
+        setupGameImages()
+        setupGestures()
+        finishButton.isEnabled = false
+        finishButton.alpha = 0.6
     }
-    
-    func setupGame() {
-        // Mostrar todas las imágenes para selección
-        for (index, imageView) in imageViews.enumerated() {
-            imageView.image = allImages[index]
-            imageView.isUserInteractionEnabled = true
+
+    func setupGameImages() {
+        let shuffledIndexes = (0..<imageList.count).shuffled()
+        image1.image = imageList[shuffledIndexes[0]]
+        image2.image = imageList[shuffledIndexes[1]]
+        image3.image = imageList[shuffledIndexes[2]]
+        image4.image = imageList[shuffledIndexes[3]]
+        image5.image = imageList[shuffledIndexes[4]]
+        image6.image = imageList[shuffledIndexes[5]]
+
+        image1.tag = shuffledIndexes[0]
+        image2.tag = shuffledIndexes[1]
+        image3.tag = shuffledIndexes[2]
+        image4.tag = shuffledIndexes[3]
+        image5.tag = shuffledIndexes[4]
+        image6.tag = shuffledIndexes[5]
+    }
+
+    func setupGestures() {
+        let images = [image1, image2, image3, image4, image5, image6]
+        for image in images {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-            imageView.addGestureRecognizer(tapGesture)
+            image?.addGestureRecognizer(tapGesture)
+            image?.isUserInteractionEnabled = true
         }
-        finishButton.isHidden = true
     }
-    
+
     @objc func imageTapped(_ sender: UITapGestureRecognizer) {
-        if let tappedImageView = sender.view as? UIImageView, let selectedImage = tappedImageView.image {
-            if selectedImages.contains(selectedImage) {
-                return
-            }
-            if selectedImages.count < 3 {
-                selectedImages.append(selectedImage)
-                tappedImageView.alpha = 0.5 // Cambiar apariencia para indicar selección
-            }
-            if selectedImages.count == 3 {
-                checkSelections()
-                finishButton.isHidden = false
-            }
+        guard let tappedImage = sender.view as? UIImageView else { return }
+
+        if selectedImages.contains(tappedImage.tag) {
+            return // Ignore already selected images
+        }
+
+        selectedImages.append(tappedImage.tag)
+
+        if selectedImageIndexes.contains(tappedImage.tag) {
+            currentScore += 25
+        } else {
+            currentScore -= 15
+        }
+
+        tappedImage.alpha = 0.5
+
+        if selectedImages.count == 3 {
+            finishButton.isEnabled = true
+            finishButton.alpha = 1.0
         }
     }
-    
-    func checkSelections() {
-        actualScore = 0
-        for image in selectedImages {
-            if imagesToMemorize.contains(image) {
-                actualScore += 25 // 25 puntos por cada imagen correcta
-            } else {
-                actualScore -= 10 // -10 puntos por cada imagen incorrecta
-            }
-        }
+
+    @IBAction func finishGame(_ sender: UIButton) {
+        performSegue(withIdentifier: "Results", sender: nil)
     }
-    
-    func lookScore() {
-        performSegue(withIdentifier: "ShowResult", sender: nil)
-    }
-    
-    @IBAction func finishButtonTapped(_ sender: UIButton) {
-        
-        user.score = actualScore
-        
-        scores.insert(user, at: 0)
-        
-        lookScore()
-    }
-    
 }

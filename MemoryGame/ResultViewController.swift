@@ -1,51 +1,62 @@
 import UIKit
 
-class ResultViewController: UIViewController, UITableViewDataSource {
-    
-    @IBOutlet weak var tablaPuntuacion: UITableView!
-    @IBOutlet weak var resultadoActual: UILabel!
-    
+class ResultViewController: UIViewController {
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var playerNameLabel: UILabel!
+    @IBOutlet weak var replayButton: UIButton!
+    @IBOutlet weak var onlineScoresButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        tablaPuntuacion.dataSource = self
-        resultadoActual.text = "Resultado actual: \(puntuacionActual)"
+        displayCurrentPlayerScore()
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return puntuaciones.count
+
+    func displayCurrentPlayerScore() {
+        playerNameLabel.text = "Jugador: \(currentPlayer.name)"
+        scoreLabel.text = "Puntuación: \(currentScore)"
+        saveCurrentScore()
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celda = tableView.dequeueReusableCell(withIdentifier: "ScoreCell", for: indexPath)
-        let puntuacion = puntuaciones[indexPath.row]
-        celda.textLabel?.text = "\(puntuacion.name): \(puntuacion.score)"
-        return celda
+
+    func saveCurrentScore() {
+        currentPlayer.score = currentScore
+        postScoreToAPI(player: currentPlayer)
     }
-    
-    @IBAction func subirPuntuacion(_ sender: UIButton) {
-        peticionPOST()
-    }
-    
-    @IBAction func verOnline(_ sender: UIButton) {
-        performSegue(withIdentifier: "ShowOnlineScores", sender: nil)
-    }
-    
-    func peticionPOST() {
+
+    func postScoreToAPI(player: Player) {
         guard let url = urlAPI else { return }
-        var solicitudPOST = URLRequest(url: url)
-        solicitudPOST.httpMethod = "POST"
-        solicitudPOST.addValue(apikey, forHTTPHeaderField: "apikey")
-        solicitudPOST.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
-        let parametros = "name=\(String(describing: usuario?.nombre))&score=\(puntuacionActual)"
-        solicitudPOST.httpBody = parametros.data(using: .utf8)
-        
-        URLSession.shared.dataTask(with: solicitudPOST) { data, response, error in
-            if error == nil {
-                print("Puntuación subida.")
-            } else {
-                print("Error al subir puntuación.")
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue(apikey, forHTTPHeaderField: "apikey")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let scoreData: [String: Any] = [
+            "name": player.name,
+            "score": player.score
+        ]
+
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: scoreData, options: .prettyPrinted)
+        } catch {
+            print("Error serializando datos de puntuación: \(error)")
+        }
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error enviando puntuación: \(error)")
+                return
             }
+            print("Puntuación enviada correctamente.")
         }.resume()
+    }
+
+    @IBAction func replayButtonPressed(_ sender: UIButton) {
+        currentScore = 0
+        selectedImageIndexes.removeAll()
+        dismiss(animated: true)
+    }
+
+    @IBAction func viewOnlineScoresButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "OnlineScores", sender: nil)
     }
 }
